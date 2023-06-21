@@ -12,12 +12,15 @@ datasource db {
 
 model User {
   id            String  @id @default(uuid())
-  name          String
-  email         String
-  isAdmin       Boolean
+  age Int 
+  name          String 
+  email         String @unique
+  role Role @default(BASIC)
   writtenPosts  Post[]  @relation("WrittenPosts")
   favoritePosts Post[]  @relation("FavoritePosts")
   userPreference UserPreference?
+  @@unique([age,name])
+  @@index([email])
 }
 
 model UserPreference {
@@ -36,9 +39,16 @@ model Post {
   favoritedBy   User?      @relation("FavoritePosts", fields: [favoritedById], references: [id])
   favoritedById String?
   categories    Category[]
+
+
 }
 
 model Category {
   id    String @id @default(uuid())
+  name String @unique
   posts Post[]
+}
+enum Role{
+	BASIC
+	admin
 }
