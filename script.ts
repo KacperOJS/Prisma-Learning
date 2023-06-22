@@ -9,7 +9,15 @@ async function main() {
 			name: "Kyle",
 			email:"rysiek@gmail.com",
 			age: 21,
+		userPreference:{
+			create:{
+				emailUpdates:true,
+			},
 		},
+	},
+	include:{
+		userPreference:true,
+	},
 	})
 	console.log(user);
 
